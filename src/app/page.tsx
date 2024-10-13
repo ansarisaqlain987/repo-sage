@@ -4,19 +4,9 @@ import { Input } from "@/components/ui/input";
 import { generateRepoName } from "@/utils/name.util";
 import { useCallback, useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  GithubIcon,
-  RefreshIcon,
-  UserIcon,
-  CopyIcon,
-} from "@/components/icons";
+import { RefreshIcon, CopyIcon } from "@/components/icons";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/hooks/use-toast";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 import { Footer } from "@/components/footer";
 
 export default function Component() {
