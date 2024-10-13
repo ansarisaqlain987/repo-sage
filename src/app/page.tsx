@@ -12,6 +12,11 @@ import {
 } from "@/components/icons";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/hooks/use-toast";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 export default function Component() {
   const [repoName, setRepoName] = useState<string>("");
@@ -128,12 +133,66 @@ export default function Component() {
         </div>
         <footer className="p-4 text-center text-sm text-gray-400">
           <div className="flex justify-center space-x-6">
-            <a href="#" className="hover:text-white">
-              <GithubIcon />
-            </a>
-            <a href="#" className="hover:text-white">
-              <UserIcon />
-            </a>
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Button variant={"ghost"}>
+                  <GithubIcon />
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-80">
+                <div className="flex justify-center items-center ">
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-semibold">
+                      @repo-sage-name-gen
+                    </h4>
+                    <p className="text-xs font-medium">
+                      An application to generate repository names
+                    </p>
+                    <p className="text-xs">
+                      created and maintained by @ansarisaqlain987
+                    </p>
+                    <div className="items-center pt-2">
+                      <span className="text-xs text-muted-foreground">
+                        <a
+                          href="https://github.com/ansarisaqlain987/repo-sage-name-gen"
+                          className="hover:text-white"
+                          target="_blank"
+                        >
+                          Link to Github Repo
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Button variant={"ghost"}>
+                  <UserIcon />
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-80">
+                <div className="flex justify-center items-center ">
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-semibold">@ansarisaqlain987</h4>
+                    <p className="text-xs font-medium">Full Stack Developer</p>
+                    <p className="text-xs">Javascript | Typescript</p>
+                    <div className="items-center pt-2">
+                      <span className="text-xs text-muted-foreground">
+                        <a
+                          href="https://www.ansarisaqlain.com/"
+                          className="hover:text-white"
+                          target="_blank"
+                        >
+                          Link to Portfolio
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
           </div>
         </footer>
       </div>
