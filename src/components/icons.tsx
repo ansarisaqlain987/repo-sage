@@ -1,4 +1,4 @@
-import { User2, RefreshCcw, Copy } from "lucide-react";
+import { User2, RefreshCcw, Copy, ArrowRight } from "lucide-react";
 
 export const GithubIcon = () => {
   return (
@@ -20,3 +20,4 @@ export const GithubIcon = () => {
 export const UserIcon = User2;
 export const RefreshIcon = RefreshCcw;
 export const CopyIcon = Copy;
+export const RightArrawIcon = ArrowRight;
