@@ -1,33 +1,38 @@
-# Stage 1: Build the application
+# Stage 1: Dependencies Install (Caching Dependencies Layer)
+FROM oven/bun:1.1.30 AS deps
+
+WORKDIR /app
+
+# Copy only package.json and bun.lockb to install dependencies
+COPY package.json bun.lockb ./
+RUN bun install --no-save
+
+# Stage 2: Build Application
 FROM oven/bun:1.1.30 AS builder
 
-# Set the working directory
 WORKDIR /app
 
-# Copy package files and install dependencies
-COPY package.json bun.lockb ./
-
-# Install dependencies
-RUN bun install
-
-# Copy all project files to the builder, including source code
+# Copy everything except unnecessary files (handled in .dockerignore)
 COPY . .
 
-# Build the Next.js application
-RUN bun run build
+# Ensure node_modules are symlinked from /app/node_modules (cached from deps)
+COPY --from=deps /app/node_modules ./node_modules
 
-# Stage 2: Create the production image
+# Build the Next.js app (outputs to `.next/`)
+RUN bun --bun next build
+
+# Stage 3: Production Image with Minimal Files
 FROM oven/bun:1.1.30 AS runner
 
-# Set the working directory
 WORKDIR /app
 
-# Copy everything except the 'src' folder from the builder stage
-COPY --from=builder /app /app
-RUN rm -rf /app/src
+# Copy only the essential files from the build stage
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/package.json /app/bun.lockb ./
+COPY --from=builder /app/node_modules ./node_modules
 
-# Expose the port the app runs on
+# Expose port 3000 for the application
 EXPOSE 3000
 
-# Command to run the Next.js application
+# Start the application
 CMD ["bun", "start"]
